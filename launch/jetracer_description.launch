@@ -1,0 +1,26 @@
+<launch>
+    <!-- Gazebo World -->
+    <include file="$(find gazebo_ros)/launch/empty_world.launch">
+        <arg name="paused" value="false"/>
+        <arg name="use_sim_time" value="true"/>
+        <arg name="gui" value="true"/>
+    </include>
+
+    <!-- Spawn Robot -->
+    <node name="spawn_urdf" pkg="gazebo_ros" type="spawn_model"
+          args="-file $(find jetracer_description)/urdf/jetracer.urdf -urdf -z 0.1 -model jetracer"/>
+
+    <!-- Controllers -->
+    <node name="controller_spawner" pkg="controller_manager" type="spawner"
+          args="joint_state_controller front_wheel_velocity_controller rear_wheel_velocity_controller"/>
+
+    <!-- Camera Node (Optional for D435i) -->
+    <node name="camera_node" pkg="realsense2_camera" type="realsense2_camera_node"
+          output="screen">
+        <param name="enable_depth" value="true"/>
+        <param name="enable_color" value="true"/>
+        <param name="enable_infra1" value="false"/>
+        <param name="enable_infra2" value="false"/>
+        <param name="pointcloud.enable" value="true"/>
+    </node>
+</launch>

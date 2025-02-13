@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<COLLADA xmlns="http://www.collada.org/2005/11/COLLADASchema" version="1.4.1">
+  <asset>
+    <contributor>
+      <author>JetRacer Model Generator</author>
+      <authoring_tool>Python</authoring_tool>
+    </contributor>
+    <created>2025-02-07</created>
+    <modified>2025-02-07</modified>
+    <unit name="meter" meter="1.0"/>
+    <up_axis>Z_UP</up_axis>
+  </asset>
+  
+  <library_geometries>
+    <geometry id="base_link-geometry" name="base_link">
+      <mesh>
+        <source id="base_link-vertices">
+          <!-- 실제 이미지의 형상을 반영한 좌표점 -->
+          <float_array id="base_link-vertices-array" count="48">
+            <!-- Top section -->
+            0.000  0.125  0.001
+            0.020  0.125  0.001
+            0.040  0.120  0.001
+            0.055  0.100  0.001
+            
+            <!-- Middle right section -->
+            0.040  0.040  0.001
+            0.040  0.000  0.001
+            0.040 -0.040  0.001
+            
+            <!-- Bottom right section -->
+            0.055 -0.100  0.001
+            0.040 -0.120  0.001
+            0.020 -0.125  0.001
+            0.000 -0.125  0.001
+            
+            <!-- Bottom left section -->
+            -0.020 -0.125  0.001
+            -0.040 -0.120  0.001
+            -0.055 -0.100  0.001
+            
+            <!-- Middle left section -->
+            -0.040 -0.040  0.001
+            -0.040  0.000  0.001
+            -0.040  0.040  0.001
+            
+            <!-- Top left section -->
+            -0.055  0.100  0.001
+            -0.040  0.120  0.001
+            -0.020  0.125  0.001
+          </float_array>
+          <technique_common>
+            <accessor source="#base_link-vertices-array" count="20" stride="3">
+              <param name="X" type="float"/>
+              <param name="Y" type="float"/>
+              <param name="Z" type="float"/>
+            </accessor>
+          </technique_common>
+        </source>
+        
+        <vertices id="base_link-vertices">
+          <input semantic="POSITION" source="#base_link-vertices"/>
+        </vertices>
+        
+        <!-- 삼각형으로 면 구성 -->
+        <triangles count="18" material="green">
+          <input semantic="VERTEX" source="#base_link-vertices" offset="0"/>
+          <p>
+            0  1  2    0  2  3    0  3  4
+            4  5  6    4  6  7    7  8  9
+            9 10 11   11 12 13   13 14 15
+            15 16 17  17 18 19   19  0  1
+          </p>
+        </triangles>
+      </mesh>
+    </geometry>
+  </library_geometries>
+  
+  <library_materials>
+    <material id="green" name="green">
+      <instance_effect url="#green-effect"/>
+    </material>
+  </library_materials>
+  
+  <library_effects>
+    <effect id="green-effect">
+      <profile_COMMON>
+        <technique sid="common">
+          <phong>
+            <ambient>
+              <color>0.0 0.8 0.0 1.0</color>
+            </ambient>
+            <diffuse>
+              <color>0.0 0.8 0.0 1.0</color>
+            </diffuse>
+          </phong>
+        </technique>
+      </profile_COMMON>
+    </effect>
+  </library_effects>
+</COLLADA>
